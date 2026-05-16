@@ -52,8 +52,8 @@ The robot employs a **three-sensor feedback mechanism** to detect the line and a
 ---
 
 ##  Results & Testing
-| Parameter | Description | Result |
-|------------|-------------|--------|
+| Parameter | Description | 
+|------------|-------------|
 | Path Tracking | Smooth following of black line |
 | Turn Control | Accurate turning using PWM differential |
 | Sensor Reliability | Stable detection with threshold tuning |
