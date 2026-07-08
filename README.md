@@ -1,76 +1,34 @@
-# Line Following Robot 
+# Line Following Robot
 
-##  Objective
-This project was developed as part of the **Robotics and Automation** curriculum to design and implement a **line-following robot** using the **STM32 microcontroller** that autonomously follows a predefined path marked by a black line on a light-colored surface.  
-The robot utilizes an **IR sensor array** for path detection and **PWM-based motor control** for precise maneuvering.
+This was a Robotics and Automation course project, a small robot built on an STM32 that follows a black line on a light surface on its own, using an IR sensor array to detect the line and PWM-controlled motors to steer.
 
----
+## What it does
 
-##  Project Overview
-The robot employs a **three-sensor feedback mechanism** to detect the line and adjust motor speed accordingly:
+Three IR sensors (left, center, right) sit at the front of the robot and read the line as it moves. Depending on which sensors are picking up the line, the robot adjusts each motor's speed to stay on track:
 
-1. **Center Sensor Active** → Move straight (equal PWM on both motors)  
-2. **Left Sensor Active** → Turn left (increase right motor speed)  
-3. **Right Sensor Active** → Turn right (increase left motor speed)  
-4. **Center + Side Active** → Sharp turn using differential speed control  
-5. **All High/Low** → Stop condition (end of path or off-track)
+- Center sensor active: go straight, equal PWM on both motors
+- Left sensor active: turn left by speeding up the right motor
+- Right sensor active: turn right by speeding up the left motor
+- Center plus one side active: sharper turn using a bigger difference in motor speed
+- All sensors high or all low: stop, since it means the robot has reached the end of the path or gone off track
 
----
+## How it's built
 
-##  Skills Demonstrated
-- **STM32 microcontroller programming** using HAL libraries and Keil uVision  
-- **PWM generation** for motor speed and direction control  
-- **Digital sensor interfacing** for real-time line detection  
-- **Embedded control logic design** for decision-based robot movement  
-- **Motor driver interfacing** with dual DC motors  
-- **Mechanical design and assembly** using laser-cut acrylic chassis  
-- **Encoder feedback integration** for motor position and velocity tracking  
+- STM32F103C8T6 (Blue Pill) programmed with HAL libraries in Keil uVision.
+- IR sensors wired to GPIO pins A2 (left), A5 (center), and B0 (right).
+- Motor control through PWM on pins A0 and A1, driving the motors through an L298N dual H-bridge.
+- Encoder feedback wired on pins A6/A7 and B6/B7 for tracking motor position and speed.
+- Chassis is custom laser-cut acrylic, 280mm by 210mm.
+- Spent some time tuning the PWM range (roughly 6000 to 15000) since anything lower didn't have enough force to overcome the motors' static friction and the robot wouldn't move smoothly.
 
----
+## Tools used
 
-##  Tools & Technologies Used
-| Category | Tools / Components |
-|-----------|--------------------|
-| **Microcontroller** | STM32F103C8T6 (Blue Pill) |
-| **Sensors** | IR Line Sensors (Left, Center, Right) |
-| **Motor Driver** | L298N Dual H-Bridge |
-| **Actuators** | DC Motors with Encoders |
-| **Chassis** | Laser-cut Acrylic (280mm × 210mm) |
-| **Development Tools** | Keil uVision, STM32CubeIDE |
-| **Peripherals Used** | PWM (TIM2), GPIO (A2, A5, B0), Encoder Inputs (A6-A7, B6-B7) |
+STM32F103C8T6, Keil uVision, STM32CubeIDE, L298N motor driver, DC motors with encoders, IR line sensors, laser-cut acrylic chassis.
 
----
+## Result
 
-##  Implementation Summary
-- Designed and fabricated **custom acrylic chassis** (280mm × 210mm).  
-- Configured **IR sensors** on GPIO pins A2 (Left), A5 (Center), B0 (Right).  
-- Implemented **PWM motor control** on pins A0 (Right Motor) and A1 (Left Motor).  
-- Developed **decision logic** for differential turning based on sensor states.  
-- Integrated **encoder feedback** for position monitoring on pins A6–A7 and B6–B7.  
-- Tuned **PWM values** (range: 6000–15000) to overcome static friction and ensure smooth motion.  
+The robot tracked the line smoothly, turned accurately using the differential PWM logic, and the sensors gave stable readings once the detection threshold was tuned properly. The chassis stayed balanced during movement and the robot responded immediately at startup without stalling.
 
----
+## Full report
 
-##  Results & Testing
-| Parameter | Description | 
-|------------|-------------|
-| Path Tracking | Smooth following of black line |
-| Turn Control | Accurate turning using PWM differential |
-| Sensor Reliability | Stable detection with threshold tuning |
-| Mechanical Stability | Balanced chassis, smooth movement |
-| Startup Response | No stalling, immediate motor response |
-
----
-
-## 📄 Full Project Report
-
-You can read the complete report here: [**Line Following Robot – Full PDF Report**](./Robotics_Report.pdf)
-
----
-
-
-##  Contact
-**Muhammad Huzaifa**  
-
-📧 [huzaifazahid888@gmail.com](mailto:huzaifazahid888@gmail.com)  
-🔗 [linkedin.com/in/huzaifa-engineer](https://linkedin.com/in/huzaifa-engineer)
+The complete write-up is in this repo: [Line Following Robot – Full PDF Report](./Robotics_Report.pdf)
